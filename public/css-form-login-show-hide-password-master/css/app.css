@@ -1,0 +1,126 @@
+body{
+    background: url('../img/Blue\ Modern\ Transport\ Login\ Page\ Wireframe\ Tablet\ UI\ Prototype\ \(Trang\ web\).png');
+background-size: cover;
+background-repeat: no-repeat;
+background-attachment: fixed;
+font-size: 16px;
+}
+#container, #wrapper {
+    display: inline-block;
+}
+.wrapper{
+    position: relative;
+}
+#container{
+    padding: 0px 0px 0px 0px;
+}
+#wrapper {
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 400px;
+    margin-right:20%;
+}
+#container {
+    
+    margin: auto;
+    text-align: center;
+.mo-ta{
+    font-family: "montserrat", Arial;
+    font-size: 55px;
+    font-style: italic;
+    color: #FFFFFF;
+    padding: 0px 0px 20px 0px;
+    border-bottom: 5px solid #142b84;
+    width: 50%;
+    margin: 0px 0px 20px 264px;
+}
+.mo-talogin{
+    font-family: "montserrat", Arial;
+    font-size: 30px;
+    color: #FFFFFF;
+}
+.mo-tathuba{
+    font-family: "montserrat", Arial;
+    font-size: 15px;
+    color: white;
+}
+}
+#container img{
+display: block;
+
+}
+
+
+.separator {
+    border-top: 1px solid white;
+    margin: 10px 0;
+}
+
+
+
+#wrapper {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    margin-left: 60%;
+}
+#form-login{
+    max-width: 400px;
+    background-color: #484E6F;
+    border-radius: 30px;
+    flex-grow: 1;
+    padding: 30px 30px 40px;
+    box-shadow: 0px 0px 0px 17px 2px rgba(255, 255, 255, 0.8);
+}
+.form-heading{
+    font-size: 25px;
+    color: #f5f5f5;
+    text-align: center;
+    margin-bottom: 30px;
+}
+.form-group{
+    border-bottom: 2px solid #ffff;
+    margin-top: 15px;
+    margin-bottom: 20px;
+    display: flex;
+
+}
+.form-group  i{
+    color: #fff;
+    font-size: 14px;
+    padding-top: 5px;
+    padding-right: 10px;
+}
+.form-input{
+    background: transparent;
+    border: 0;
+    outline: 0;
+    color: #f5f5f5;
+    flex-grow: 1;
+}
+.form-input::placeholder{
+    color: #f5f5f5;
+}
+#eye i{
+    padding-right: 0px;
+    cursor: pointer;
+}
+.form-submit{
+    background: black;
+    border: 1px solid #f5f5f5;
+    width: 100%;
+    text-transform: uppercase;
+    padding: 6px 10px;
+    transition: 0.25s ease-in-out;
+    margin-top: 30px;
+    color: #fff;
+}
+.form-submit:hover{
+    border: 1px solid #190db6;
+}
+container{
+    max-width: 400px;
+            margin: auto;
+            text-align: center;
+}

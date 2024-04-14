@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>HOSPITAL MANAGEMENT</title>
+    <link href="/public/picture/bku.png" rel="icon" type="image/x-icon">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+<body>
+    <div style="margin-bottom: 42px;">
+        <header class="logo-name">
+            <ul style="list-style: none;">
+                <li style="float: left;margin-left: 130px;padding-right:30px;"><img src="/public/picture/bku.png"
+                        alt="bkupic" height="80px"></li>
+                <li>
+                    <h1
+                        style="font-family: Arial, Helvetica, sans-serif;font-size: 22pt;padding-top: 28px;padding-left: 200px;">
+                        <i>BK Hospital</i>
+                    </h1>
+                </li>
+            </ul>
+        </header>
+    </div>
+
+    <div class="functab" style="background-color: #3AB0FF;padding-top: 7px;padding-bottom: 7px;">
+        <ul style="list-style: none;">
+            <li style="float: left;padding-right: 350px;padding-left: 120px;"><a href="/public/FirstPage/firstpage.html"
+                    rel=""><b>HOME</b></a></li>
+            <li style="float: left;"><a href="/public/patient/patient_inf.html" rel=""><b>BỆNH NHÂN</b></a></li>
+            <li style="float: left;"><a href="/public/hopitalstaff/h_staff.html" rel=""><b>NHÂN VIÊN Y TẾ</b></a></li>
+            <li style="float: left;"><a href="/public/medicine/medicine.html" rel=""><b>THUỐC</b></a></li>
+            <li style="float: left ;padding-right: 50px;"><a href="/public/hospital-Machine/h_machine.html"
+                    rel=""><b>THIẾT BỊ Y TẾ</b></a></li>
+            <li><a id="loginbutt" rel=""><b><i>ADMIN</i></b></a></li>
+        </ul>
+    </div>
+
+    <div class="sth" style="height: 700px;">
+        <div id="query_update_box">
+            <h3 id="here"></h3>
+        </div>
+        <div class="respon_update_box" >
+            <div style="display: block;padding: 20px 20px;width: 100%;background-color: #e7e7e7;">
+                <h3 style="font-family: Arial, Helvetica, sans-serif;margin-left: 70px;"><b>CHỈNH SỬA THÔNG TIN BỆNH NHÂN</b></h3>
+                <hr color="#3AB0FF">
+                <div style="padding-left: 100px;">
+                    <label>
+                        Tên bệnh nhân *
+                        <input type="text" id="pa_name" value="" disabled><br><br>
+                    </label>
+                    <label>
+                        Mã BHXH *
+                        <input type="text" id="pa_bhxh" value="" disabled><br><br>
+                    </label>
+                    <label>
+                        Mã Số CCCD *
+                        <input type="text" id="pa_cccd" value="" disabled><br><br>
+                    </label>
+                    <label>
+                        Số Điện thoại *
+                        <input type="text" id="pa_number" placeholder="Để trống nếu không đổi" ><br><br>
+                    </label>
+                    <label>
+                        Địa chỉ *
+                        <input type="text" id="pa_address" placeholder="Để trống nếu không đổi" size="45"><br><br>
+                    </label>
+                    <label>
+                        Kết quả xét nghiệm *<br>
+                        <textarea id="pa_kqxn" rows="8" cols="100"></textarea><br><br>
+                    </label>
+                </div>
+
+                <button id="" style="border: none;padding: 10px 20px;border-radius: 7px;color: white;background-color: #3AB0FF;margin: 20px 400px;">Cập nhật thay đổi</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer_page" style="height: 200px;background-color: #76c2f5;">
+        <h3 style="font-family: Arial, Helvetica, sans-serif;text-align: center;margin-top: 20px;padding-top: 20px;">
+            <i>&copy 2024 - This is product of "5 AE Siu Nhơn"</i>
+        </h3>
+        <nav style="width: 50%;float: left;">
+            <address style="margin-left: 10%;">
+                Contact us: tenmarkornever@yahoo.com<br>
+                Number: (+84) 123456789<br>
+                Head officer: Bach Khoa University, Ho Chi Minh City, VietNam
+            </address>
+        </nav>
+        <nav style="width: 50%;float: left;">
+
+        </nav>
+    </div>
+
+
+    <script>
+        // Wait for the DOM content to be fully loaded
+        document.addEventListener("DOMContentLoaded", function () {
+            // Retrieve the values of s_patientName, s_bhxh, and s_cccd from the URL query string
+            const urlParams = new URLSearchParams(window.location.search);
+            const s_patientName = urlParams.get('s_patientName');
+            const s_bhxh = urlParams.get('s_bhxh');
+            const s_cccd = urlParams.get('s_cccd');
+
+            document.getElementById('pa_name').value =  s_patientName;
+            document.getElementById('pa_bhxh').value =  s_bhxh;
+            document.getElementById('pa_cccd').value =  s_cccd;
+        });
+    </script>
+</body>
+
+</html>
+
+<style>
+    /* Responsive layout - makes the menu and the content (inside the section) sit on top of each other instead of next to each other */
+    @media (max-width: 600px) {
+        section {
+            -webkit-flex-direction: column;
+            flex-direction: column;
+        }
+    }
+
+    body {
+        background-image: url("/picture/4.png");
+    }
+
+    a,
+    a:active,
+    a:visited {
+        color: rgb(0, 0, 0);
+        text-decoration: none;
+        font-family: Verdana, Geneva, Tahoma, sans-serif;
+        font: bold;
+        padding: 20px;
+    }
+
+    a:hover {
+        background-color: #1a9ef6;
+    }
+
+    #loginbutt {
+        padding: 20px;
+        border-radius: 16px;
+        background-color: #FFFF;
+    }
+
+    #loginbutt:hover {
+        background-color: #0066ff;
+    }
+    .sth{
+        font-size: larger;
+    }
+</style>

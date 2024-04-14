@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" href="css/app.css">
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css">
+    <title>Form login</title>
+</head>
+
+<body>
+
+
+    <div id="container">
+        <img src="/css-form-login-show-hide-password-master/img/01_logobachkhoatoi.png" alt="logobachkhoat"
+            style="width: 400px; height: auto; margin: 157px 368px -32px 320px;">
+        <h1 class="mo-ta">BK hospital</h1>
+
+        <h2 class="mo-talogin">ĐĂNG NHẬP</h2>
+
+        <h2 class="mo-tathu3"> Để quản lý bệnh viện</h2>
+    </div>
+
+    <div id="wrapper">
+        <form action="" id="form-login">
+            <h1 class="form-heading">ĐĂNG NHẬP</h1>
+            <div class="form-group">
+                <i class="far fa-user"></i>
+                <input type="text" id="username" name ="username" class="form-input" placeholder="Tên đăng nhập" required>
+            </div>
+            <div class="form-group">
+                <i class="fas fa-key"></i>
+                <input type="password" id="password" name="password" class="form-input" placeholder="Mật khẩu" required>
+                <div id="eye">
+                    <i class="far fa-eye"></i>
+                </div>
+            </div>
+            <input type="submit" value="Đăng Nhập" class="form-submit">
+        </form>
+    </div>
+    <div id="message"></div>
+
+</body>
+<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+<script src="js/app.js"></script>
+
+</html>
+
+<script>
+    document.getElementById("form-login").addEventListener("submit", function(event) {
+    event.preventDefault();
+    
+    var username = document.getElementById("username").value;
+    var password = document.getElementById("password").value;
+    
+    // Example validation (replace with your authentication logic)
+    if (username === "admin" && password === "123") {
+      // Redirect to dashboard or perform other actions upon successful login
+      window.location.href = "/public/FirstPage/firstpage.html";
+    } else {
+      alert("Tên đăng nhập hoặc mật khẩu chưa đúng!")
+      window.location.reload();
+    }
+  });
+</script>

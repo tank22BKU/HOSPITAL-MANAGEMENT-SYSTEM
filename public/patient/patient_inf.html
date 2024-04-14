@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>HOSPITAL MANAGEMENT</title>
+    <link href="/public/picture/bku.png" rel="icon" type="image/x-icon">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+<body>
+    <div style="margin-bottom: 42px;">
+        <header class="logo-name">
+            <ul style="list-style: none;">
+                <li style="float: left;margin-left: 130px;padding-right:30px;"><img src="/public/picture/bku.png"
+                        alt="bkupic" height="80px"></li>
+                <li>
+                    <h1
+                        style="font-family: Arial, Helvetica, sans-serif;font-size: 22pt;padding-top: 28px;padding-left: 200px;">
+                        <i>BK Hospital</i>
+                    </h1>
+                </li>
+            </ul>
+        </header>
+    </div>
+
+    <div class="functab" style="background-color: #3AB0FF;padding-top: 7px;padding-bottom: 7px;">
+        <ul style="list-style: none;">
+            <li style="float: left;padding-right: 350px;padding-left: 120px;"><a href="/public/FirstPage/firstpage.html"
+                    rel=""><b>HOME</b></a></li>
+            <li style="float: left;"><a href="/public/patient/patient_inf.html" rel=""><b>BỆNH NHÂN</b></a></li>
+            <li style="float: left;"><a href="/public/hopitalstaff/h_staff.html" rel=""><b>NHÂN VIÊN Y TẾ</b></a></li>
+            <li style="float: left;"><a href="/public/medicine/medicine.html" rel=""><b>THUỐC</b></a></li>
+            <li style="float: left ;padding-right: 50px;"><a href="/public/hospital-Machine/h_machine.html"
+                    rel=""><b>THIẾT BỊ
+                        Y TẾ</b></a></li>
+            <li><a id="loginbutt" rel=""><b><i>ADMIN</i></b></a></li>
+        </ul>
+    </div>
+
+    <div class="container" style="height: 700px;margin-top: 10px;">
+        <div class="present_data">
+
+        </div>
+        <div style="width: 32%;float: left;">
+            <div class="search-box"
+                style="background-color: #e7e5e7;border-radius: 16px;padding: 10px 10px 10px 10px;margin-left: 10px;">
+                <div style="margin-left: 10px;">
+                    <label id="box-header" style="font-family: Arial, Helvetica, sans-serif;font-size: 20pt;">Tra cứu
+                        thông tin bệnh nhân</label><br>
+                    <hr color="#3AB0FF">
+                    <label id="check-name">Họ và Tên<label style="color: red;">*</label></label>
+                    <input type="text" id="inputname" placeholder="Trần Văn A" required style="margin-left: 3px;"
+                        autocomplete="off"><br><br>
+                    <label id="check-bh">Mã BHXH<label style="color: red;">*</label></label>
+                    <input type="text" id="idbhxh" placeholder="12345" maxlength="5" size="5" required
+                        autocomplete="off"><br><br>
+                    <label id="CCCD__id">CCCD<label style="color: red;">*</label></label>
+                    <input type="text" maxlength="5" id="idcccd" size="5" placeholder="12345" required autocomplete="off"
+                        style="margin-left: 27px;"><br><br>
+                    <hr color="#3AB0FF">
+                    <button id="find_patient" style="border: none;padding: 10px 10px;color:white;background-color: #3AB0FF;border-radius: 10px;margin-left: 20px;">Tra cứu</button>
+                    <button id="update_patient" style="border: none;padding: 10px 10px;color:white;background-color: #3AB0FF;border-radius: 10px;margin-left: 20px;">Chỉnh sửa thông tin</button>
+                    <button id="delete_patinet" style="border: none;padding: 10px 10px;color:white;background-color: #3AB0FF;border-radius: 10px;margin-left: 20px;">Xóa</button>
+                </div>
+
+            </div>
+            <div class="display_total"
+                style="display: inline-block;margin-top: 30px;background-color: #e7e5e7;border-radius: 16px;padding: 10px 10px 10px 10px;margin-left: 10px;width: 545px;">
+                <ul style="list-style-type:disc;color: black;">
+                    <li>
+                        <h3>Tổng số bệnh nhân đã điều trị: num_</h3>
+                    </li>
+                    <li>
+                        <h3>Tổng số bệnh nhân đang được điều trị: num_</h3>
+                    </li>
+                </ul>
+            </div>
+            <div class="form-addpatient"
+                style="display: block;padding: 50px 20px;margin: 10px 10px;background-color: #e7e5e7;width: 525px;">
+                <label>
+                    Họ & Tên <label style="color: red;">*</label>
+                    <input type="text" id="addname" placeholder="Trần Văn A"><br><br>
+                </label>
+                <label>
+                    Mã BHXH <label style="color: red;">*</label>
+                    <input type="text" id="addBHXH" placeholder="12345"><br><br>
+                </label>
+                <label>
+                    Số CCCD <label style="color: red;">*</label>
+                    <input type="text" id="addCCCD" placeholder="12345"><br><br>
+                </label>
+                <label>
+                    Số ĐTDĐ <label style="color: red;">*</label>
+                    <input type="text" id="addsdt" placeholder="12345"><br><br>
+                </label>
+                <label>
+                    Giới tính <label style="color: red;">*</label>
+                    <select id="sexval">
+                        <option value="Giới tính" hidden>Giới tính</option>
+                        <option value="Nam">Nam</option>
+                        <option value="Nữ">Nữ</option>
+                    </select><br><br>
+                </label>
+                <label>
+                    Địa chỉ <label style="color: red;">*</label>
+                    <input type="text" id="adddiachi" placeholder="Số 08/Nguyễn Thái Học,Thành Phố A" size="45"><br><br>
+                </label>
+                <label>
+                    Kết quả xét nghiệm <label style="color: red;">*</label><br>
+                    <textarea id="kqxn" rows="5" cols="45"></textarea>
+                </label><br><br>
+
+                <button id="addpatient" style="margin-left: 100px;">Tạo mới bệnh nhân</button>
+            </div>
+        </div>
+
+        <div class="display-patient" style="width: 65%;float: left;border-color: 10pt solid black;margin-left: 10px;">
+            <div class="patientinf"
+                style="display: block;margin-left: 20px;display:inline-block;background-color: #e7e5e7;border-radius: 20px;padding: 5px 30px;width: 90%;">
+
+                <h3>Bệnh nhân: Nguyễn Văn A</h3>
+                <p>Mã Bảo hiểm xã hội: 12345</p>
+                <p>Căn cước công dân: 23456</p>
+                <p>Số điện thoại: 0123456789</p>
+                <p>Giới tính: Nam</p>
+                <p>Địa chỉ: 234 Đường Vũ Huy Tấn, Quận Bình Thạnh, TP.Hồ Chí Minh</p>
+                <p>Kết quả xét nghiệm : Chẩn đoán : Viêm da cơ địa <br> Chỉ số fmi : 1.2 vượt ngưỡng bình thường
+
+                </p>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="footer_page" style="height: 200px;background-color: #76c2f5;">
+        <h3 style="font-family: Arial, Helvetica, sans-serif;text-align: center;margin-top: 20px;padding-top: 20px;">
+            <i>&copy 2024 - This is product of "5 AE Siu Nhơn"</i>
+        </h3>
+        <nav style="width: 50%;float: left;">
+            <address style="margin-left: 10%;">
+                Contact us: tenmarkornever@yahoo.com<br>
+                Number: (+84) 123456789<br>
+                Head officer: Bach Khoa University, Ho Chi Minh City, VietNam
+            </address>
+        </nav>
+        <nav style="width: 50%;float: left;">
+        </nav>
+    </div>
+    <!--
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.5/jquery-ui.min.js"></script>
+    -->
+    <script>
+        // let s_patientName = document.getElementById('inputname');
+        // let s_bhxh = document.getElementById('idbhxh');
+        // let s_cccd = document.getElementById( 'idcccd' );
+        document.getElementById('update_patient').addEventListener('click', () => {
+        // Get the values of s_patientName, s_bhxh, and s_cccd
+        let s_patientName = document.getElementById('inputname').value;
+        let s_bhxh = document.getElementById('idbhxh').value;
+        let s_cccd = document.getElementById('idcccd').value;
+
+        // Redirect to update_patient.html with query parameters
+        window.location.href = `/public/patient/update_patient.html?s_patientName=${encodeURIComponent(s_patientName)}&s_bhxh=${encodeURIComponent(s_bhxh)}&s_cccd=${encodeURIComponent(s_cccd)}`;
+    });
+    </script>
+</body>
+
+</html>
+
+<style>
+    /* Responsive layout - makes the menu and the content (inside the section) sit on top of each other instead of next to each other */
+    @media (max-width: 600px) {
+        section {
+            -webkit-flex-direction: column;
+            flex-direction: column;
+        }
+    }
+
+    body {
+        background-image: url("/picture/4.png");
+    }
+
+    a,
+    a:active,
+    a:visited {
+        color: rgb(0, 0, 0);
+        text-decoration: none;
+        font-family: Verdana, Geneva, Tahoma, sans-serif;
+        font: bold;
+        padding: 20px;
+    }
+
+    a:hover {
+        background-color: #1a9ef6;
+    }
+
+    #loginbutt {
+        padding: 20px;
+        border-radius: 16px;
+        background-color: #FFFF;
+    }
+
+    #loginbutt:hover {
+        background-color: #0066ff;
+    }
+
+    .tracuubox {
+        border: 1px solid #3AB0FF;
+    }
+
+    .tracuubox:hover {
+        border: 1px solid #e8eff4;
+    }
+
+    .container {
+        flex: 1;
+        overflow-y: scroll;
+        max-height: 700px;
+    }
+</style>

@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>HOSPITAL MANAGEMENT</title>
+    <link href="/public/picture/bku.png" rel="icon" type="image/x-icon">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+<body>
+    <script src="Employee.js"></script>
+    <script src="Schedule.js"></script>
+
+    <!-- Firebase App (the core Firebase SDK) is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-app.js"></script>
+
+    <!-- If you enabled the database -->
+    <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-database.js"></script>
+
+    <script>
+    // Your web app's Firebase configuration
+    var firebaseConfig = {
+        apiKey: "AIzaSyAm2Du9ovRq_cVU_2jTzSQs_SsTXoHikG8",
+        authDomain: "ltnc-25ea6.firebaseapp.com",
+        databaseURL: "https://ltnc-25ea6-default-rtdb.firebaseio.com",
+        projectId: "ltnc-25ea6",
+        storageBucket: "ltnc-25ea6.appspot.com",
+        messagingSenderId: "83914455666",
+        appId: "1:83914455666:web:5bcacf284fca1e352620eb",
+        measurementId: "G-SGSYMX429F"
+    };
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.database();
+    const elistRef = db.ref("/Employees");
+    </script>
+
+    <div style="margin-bottom: 42px;">
+        <header class="logo-name">
+            <ul style="list-style: none;">
+                <li style="float: left;margin-left: 130px;padding-right:30px;"><img src="/public/picture/bku.png" alt="bkupic"
+                        height="80px"></li>
+                <li>
+                    <h3
+                        style="font-family: Arial, Helvetica, sans-serif;font-size: 22pt;padding-top: 28px;padding-left: 200px;">
+                        <i>BK Hospital</i>
+                    </h3>
+                </li>
+            </ul>
+        </header>
+    </div>
+
+    <div class="functab" style="background-color: #3AB0FF;padding-top: 7px;padding-bottom: 7px;">
+        <ul style="list-style: none;">
+            <li style="float: left;padding-right: 350px;padding-left: 120px;"><a href="/public/FirstPage/firstpage.html"
+                    rel=""><b>HOME</b></a></li>
+            <li style="float: left;"><a href="/public/patient/patient_inf.html" rel=""><b>BỆNH NHÂN</b></a></li>
+            <li style="float: left;"><a href="/public/hopitalstaff/h_staff.html" rel=""><b>NHÂN VIÊN Y TẾ</b></a></li>
+            <li style="float: left;"><a href="/public/medicine/medicine.html" rel=""><b>THUỐC</b></a></li>
+            <li style="float: left ;padding-right: 50px;"><a href="/public/hospital-Machine/h_machine.html" rel=""><b>THIẾT BỊ Y TẾ</b></a></li>
+            <li><a id="loginbutt" rel=""><b><i>ADMIN</i></b></a></li>
+        </ul>
+    </div>
+   
+    
+    <h1>Quản lý nhân viên</h1>
+
+    <form action=""id="employeeForm" >
+        <h2 class="form-heading">Tạo nhân viên mới</h2>
+        <label for="name">Tên nhân viên:</label>
+        <input type="text" id="name" name="name" required><br><br>
+
+        <label for="position">Chức vụ:</label>
+        <select id="position" name="position" required>
+            <option value="Bác sĩ">Bác sĩ</option>
+            <option value="Y tá">Y tá</option>
+            <option value="Điều dưỡng">Điều dưỡng</option>
+            <option value="Trợ lí điều dưỡng">Trợ lí điều dưỡng</option>
+        </select><br><br>
+
+        <label for="degree">Bằng cấp:</label>
+        <input type="text" id="degree" name="degree" required><br><br>
+
+        <label for="specialization">Chuyên ngành:</label>
+        <input type="text" id="specialization" name="specialization" required><br><br>
+
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required><br><br>
+
+        <label for="phone">Số điện thoại:</label>
+        <input type="tel" id="phone" name="phone" required><br><br>
+
+        <button onclick="createAndRefresh()">Thêm nhân viên</button>
+    </form>
+
+    <div id="output"></div>
+    
+    
+    
+    <div id="wrapper">
+        <h2 class="center">DANH SÁCH NHÂN VIÊN Y TẾ</h2>
+        <input type="text" id="searchInput" onkeyup="searchEmployee(this.value)" placeholder="Tìm nhân viên...">
+        <div class="table-wrapper">
+            <table>
+                <tbody id="employee-table">
+                    <!-- Dữ liệu từ cơ sở dữ liệu sẽ được thêm vào đây -->
+                </tbody>
+            </table>
+        </div>
+        <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            updateTable();
+        });
+        </script>
+    </div>
+    <script>
+      function searchEmployee(name) {
+        // Get the table
+        const table = document.getElementById('employee-table');
+
+        // Loop through all table rows, and hide those who don't match the search query
+        for (let i = 1; i < table.rows.length; i++) {
+            let td = table.rows[i].getElementsByTagName('td')[1]; // Assuming the name is in the second column
+            if (td) {
+                let txtValue = td.textContent || td.innerText;
+                if (txtValue.toUpperCase().includes(name.toUpperCase())) {
+                    table.rows[i].style.display = "";
+                } else {
+                    table.rows[i].style.display = "none";
+                }
+            }
+        }
+    }
+      </script>
+    <h1>Quản lý lịch trực của nhân viên</h1>
+    
+    <form id="schedule-form">
+        <h2>Tạo lịch trực</h2>
+        <label for="day">Chọn ngày:</label>
+<select id="day" name="day">
+    <option value="Monday">Thứ 2</option>
+    <option value="Tuesday">Thứ 3</option>
+    <option value="Wednesday">Thứ 4</option>
+    <option value="Thursday">Thứ 5</option>
+    <option value="Friday">Thứ 6</option>
+    <option value="Saturday">Thứ 7</option>
+</select>
+<label for="shift">Ca làm việc:</label>
+<select id="shift" name="shift">
+    <option value="shift1">Ca 1 </option>
+    <option value="shift2">Ca 2 </option>
+    <option value="shift3">Ca 3</option>
+</select>
+        <label for="ID">ID nhân viên:</label>
+        <input type="text" id="ID" name="ID"  required><br><br>
+        
+
+        <button type="button" onclick="setSchedulenByForm()">Tạo Lịch Làm Việc</button>
+    </form>
+    <div class="schedule-wrapper">
+      <!-- Thẻ h2 bảng lịch trực -->
+      <h2>Bảng lịch trực</h2>
+  
+      <!-- Địa điểm để hiển thị bảng lịch trình -->
+      <div id="scheduleTableContainer"></div>
+      <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            updateSchedule();
+        });
+        </script>
+  </div>
+    <div class="footer_page" style="height: 200px;background-color: #76c2f5;">
+        <h3 style="font-family: Arial, Helvetica, sans-serif;text-align: center;margin-top: 20px;padding-top: 20px;">
+            <i>&copy 2024 - This is product of "5 AE Siu Nhơn"</i>
+        </h3>
+        <nav style="width: 50%;float: left;">
+            <address style="margin-left: 10%;">
+                Contact us: tenmarkornever@yahoo.com<br>
+                Number: (+84) 123456789<br>
+                Head officer: Bach Khoa University, Ho Chi Minh City, VietNam
+            </address>
+        </nav>
+        <nav style="width: 50%;float: left;">
+
+        </nav>
+    </div>
+    
+</body>
+
+</html>
+
+<style>
+    /* Responsive layout - makes the menu and the content (inside the section) sit on top of each other instead of next to each other */
+    @media (max-width: 600px) {
+        section {
+            -webkit-flex-direction: column;
+            flex-direction: column;
+        }
+    }
+
+    body {
+        background-image: url("/public/picture/4.png");
+    }
+
+    a,
+    a:active,
+    a:visited {
+        color: rgb(0, 0, 0);
+        text-decoration: none;
+        font-family: Verdana, Geneva, Tahoma, sans-serif;
+        font: bold;
+        padding: 20px;
+    }
+
+    a:hover {
+        background-color: #1a9ef6;
+    }
+
+    #loginbutt {
+        padding: 20px;
+        border-radius: 16px;
+        background-color: #FFFF;
+    }
+
+    #loginbutt:hover {
+        background-color: #0066ff;
+    }
+    h1 {
+  
+  font-family: "montserrat", Arial;
+  font-size: 24px; /* Kích thước chữ */
+  font-weight: bold; /* Độ đậm của chữ */
+  color: #333; /* Màu chữ */
+  text-align: center; /* Căn giữa nội dung */
+  padding: 20px; /* Khoảng cách bên trong của box */
+  background-color: #f0f0f0; /* Màu nền của box */
+  border: 1px solid #ccc; /* Viền của box */
+  border-radius: 5px; /* Độ cong của góc của box */
+}
+    #schedule-form {
+        font-family: "montserrat", Arial;
+    
+            width: 300px;
+            margin: 39px -4px 5px 79px;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+            
+    }
+         button[type="button"] {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        h2{
+            display: flex;
+            justify-content: center;
+            text-align: center;
+    font-size: 25px;
+    color: #000000;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        input[type="DoctorID"],
+        select {
+            width: calc(100% - 10px);
+            padding: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        button[type="submit"]:hover {
+            background-color: #45a049;
+        }
+
+        #output {
+            margin-top: 20px;
+            font-weight: bold;
+        }
+    #employeeForm {
+        font-family: "montserrat", Arial;
+    
+            width: 300px;
+            margin: 39px -4px 5px 79px;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+        }
+        h2{
+            display: flex;
+            justify-content: center;
+            text-align: center;
+            margin: 9px 0px 26px 0;
+    font-size: 25px;
+    color: #000000;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="tel"],
+        select {
+            width: calc(100% - 10px);
+            padding: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        button[type="submit"]:hover {
+            background-color: #45a049;
+        }
+
+        #output {
+            margin-top: 20px;
+            font-weight: bold;
+        }
+      /* Style cho ô nhập tìm kiếm */
+      #wrapper{
+        font-family: "montserrat", Arial;
+            width: 1300px;
+            margin: -689px 24px 17px 102px;
+            padding: 20px;
+            border: 2px solid #ccc;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+            text-align: right;
+            float: right;
+      }
+      /*Style cho menu Edit*/
+      .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #f9f9f9;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            z-index: 1;
+        }
+
+        .dropdown-content a {
+            color: black;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+        }
+
+        .dropdown-content a:hover {background-color: #f1f1f1}
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        .dropdown:hover .dropbtn {
+            background-color: #3e8e41;
+        }
+    
+   
+      .table-wrapper {
+    height: 510px; /* Đặt chiều cao tối đa */
+    overflow-y: auto; /* Tạo thanh cuộn dọc */
+}
+.table-wrapper th, .table-wrapper td {
+    padding: 8px;
+    text-align: left;
+    white-space: nowrap; /* Ngăn chặn từ bị ngắt dòng */
+}
+
+.table-wrapper th {
+    position: sticky; /* Cố định thanh tiêu đề */
+    top: 0; /* Đặt vị trí cố định ở trên cùng */
+    background-color: #f2f2f2; /* Màu nền cho thanh tiêu đề */
+    z-index: 1; /* Đảm bảo thanh tiêu đề hiển thị trên cùng */
+}
+/* Style cho bảng */
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+/* Style cho header của bảng */
+th, td {
+    border: 2px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+
+th {
+    background-color: #f2f2f2;
+}
+
+/* Style cho các dòng của bảng */
+tr:hover {
+    background-color: #f5f5f5;
+}
+.schedule-wrapper {
+  font-family: "montserrat", Arial;
+            width: 1300px;
+            margin: -380px 24px 17px 102px;
+            padding: 20px;
+            border: 2px solid #ccc;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+            text-align: right;
+            float: right;
+    }
+
+    .schedule-table {
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    .schedule-table th, .schedule-table td {
+        border: 1px solid #dddddd;
+        text-align: center;
+        padding: 8px;
+    }
+
+    .schedule-table th {
+        background-color: #f2f2f2;
+    }
+
+    .schedule-table td:hover {
+        cursor: pointer;
+        background-color: #f0f0f0;
+    }
+
+</style>

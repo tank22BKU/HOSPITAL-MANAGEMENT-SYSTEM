@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>HOSPITAL MANAGEMENT</title>
+    <link href="/public/picture/bku.png" rel="icon" type="image/x-icon">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+<body>
+    <div style="margin-bottom: 42px;">
+        <header class="logo-name">
+            <ul style="list-style: none;">
+                <li style="float: left;margin-left: 130px;padding-right:30px;"><img src="/public/picture/bku.png" alt="bkupic"
+                        height="80px"></li>
+                <li>
+                    <h1
+                        style="font-family: Arial, Helvetica, sans-serif;font-size: 22pt;padding-top: 28px;padding-left: 200px;">
+                        <i>BK Hospital</i>
+                    </h1>
+                </li>
+            </ul>
+        </header>
+    </div>
+    <div class="functab" style="background-color: #3AB0FF;padding-top: 7px;padding-bottom: 7px;">
+        <ul style="list-style: none;">
+            <li style="float: left;padding-right: 350px;padding-left: 120px;"><a href="/public/FirstPage/firstpage.html"
+                    rel=""><b>HOME</b></a></li>
+            <li style="float: left;"><a href="/public/patient/patient_inf.html" rel=""><b>BỆNH NHÂN</b></a></li>
+            <li style="float: left;"><a href="/public/hopitalstaff/h_staff.html" rel=""><b>NHÂN VIÊN Y TẾ</b></a></li>
+            <li style="float: left;"><a href="/public/medicine/medicine.html" rel=""><b>THUỐC</b></a></li>
+            <li style="float: left ;padding-right: 50px;"><a href="/public/hospital-Machine/h_machine.html" rel=""><b>THIẾT BỊ
+                        Y TẾ</b></a></li>
+            <li><a id="loginbutt" rel=""><b><i>ADMIN</i></b></a></li>
+        </ul>
+    </div>
+
+    <div class="container">
+        <div class="sth" style="height: 700px;">
+            <div class="left-inf" style="display: block;float: left;width: 50%;">
+                <div class="search-box"
+                    style="background-color: #e7e5e7;border-radius: 16px;padding: 10px 10px 10px 10px;margin-left: 10px;margin-top: 10px;">
+                    <div style="margin-left: 10px;">
+                        <label id="box-header" style="font-family: Arial, Helvetica, sans-serif;font-size: 20pt;">Tra
+                            cứu thông tin thuốc</label><br>
+                        <hr color="#3AB0FF">
+                        <label id="check-name">Tên loại thuốc<label style="color: red;">*</label></label>
+                        <input type="text" id="inputname" placeholder="Panadol." style="margin-left: 3px;"
+                            autocomplete="off"><br><br>
+                        <hr color="#3AB0FF">
+                        <!--<input class="tracuubox" type="submit" value="Tra cứu"
+                                style="margin: 0px 0px 0px 150px;padding: 10px 20px 10px 20px;border-radius: 10px;background-color: #1a9ef6;color: white;font-size: 13pt;"
+                                onclick="find_medicine()">-->
+                        <button id="findandlist"
+                            style="border: none;padding: 10px 20px;border-radius: 10px;background-color: #3AB0FF;color: #FFFF;margin: 10px 250px;">Tra
+                            cứu</button>
+                    </div>
+
+                </div>
+                <div class="listing-medicine" style="background-color: #e7e5e7;border-radius: 16px;height: 400px;">
+                    <div class="intro_medicine" style="margin: 20px 0px;">
+                        <h3
+                            style="text-align: center;font-family:Arial, Helvetica, sans-serif;font-size: 25pt;padding-top: 15px;">
+                            DANH
+                            SÁCH THUỐC</h3>
+                    </div>
+                    <div class="showfind" id="showfind" style="display:block;height: auto;margin: 10px 10px;">
+                        <div class="dis-inf" style="padding: 10px 10px;">
+                            <div style="padding-left: 50px;" id="medicineList">
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="right-inf" style="display:block;float: left;width: 50%;">
+                <div class="add-subs">
+                    <div class="search-box"
+                        style="background-color: #e7e5e7;border-radius: 16px;padding: 10px 10px 10px 10px;margin-left: 10px;margin-top: 10px;">
+                        <div style="margin-left: 100px;margin-top: 20px">
+                            <label>Tên loại thuốc<label style="color: red;">*</label><input type="text" id="medname"
+                                    placeholder="Panadol." style="margin-left: 3px;" autocomplete="off"><br><br></label>
+                            <label>Số lượng<label style="color: red;">*</label><input type="number" id="quantity"
+                                    placeholder="50." style="margin-left: 33px;"><br><br></label>
+                            <label>Hạn sử dụng<label style="color: red;">*</label><input type="text" id="date"
+                                    placeholder="20/10/2024" style="margin-left: 3px;"
+                                    autocomplete="off"><br><br></label>
+
+                            <hr color="#3AB0FF">
+                            <button id="addbutt"
+                                style="border: none;padding: 10px 20px;border-radius: 10px;background-color: #3AB0FF;color: #FFFF;margin: 10px 100px;">Nhập
+                                thuốc</button>
+                            <button id="export"
+                                style="border: none;padding: 10px 20px;border-radius: 10px;background-color: #3AB0FF;color: #FFFF;margin: 10px 0px;">Xuất
+                                thuốc</button>
+
+                            <p id="signal" style="text-align: center;color: red;"></p>
+                        </div>
+
+                    </div>
+                    <!--
+                        <div class="2button" style="display: block;margin: 30px 220px;float: left;">
+                        <button
+                            style="border:none;padding: 20px;border-radius: 20px;background-color: #3AB0FF;font-size: 15pt;"
+                            onclick="importmed()">Nhập thuốc</button>
+                        <button
+                            style="border:none;padding: 20px;border-radius: 20px;background-color: #3AB0FF;font-size: 15pt;"
+                            onclick="exportmed()">Xuất thuốc</button>
+                    </div>-->
+                    <div class="show-form" style="display: block;float: none;">
+
+                    </div>
+                </div>
+                <div class="query-add-subs" style="display: block;margin: 10px 10px;"">
+                    <h1 id=" bacon">
+                    </h1>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer_page" style="height: 200px;background-color: #76c2f5;">
+            <h3
+                style="font-family: Arial, Helvetica, sans-serif;text-align: center;margin-top: 20px;padding-top: 20px;">
+                <i>&copy 2024 - This is product of "5 AE Siu Nhơn"</i>
+            </h3>
+            <nav style="width: 50%;float: left;">
+                <address style="margin-left: 10%;">
+                    Contact us: tenmarkornever@yahoo.com<br>
+                    Number: (+84) 123456789<br>
+                    Head officer: Bach Khoa University, Ho Chi Minh City, VietNam
+                </address>
+            </nav>
+            <nav style="width: 50%;float: left;">
+
+            </nav>
+        </div>
+    </div>
+
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-app.js";
+        import { getDatabase, ref, get, set, update, push, remove } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-database.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyDcB0lhFB7D-vW3fls9DNLQKcQPHkngvn4",
+            authDomain: "hopital-test.firebaseapp.com",
+            databaseURL: "https://hopital-test-default-rtdb.firebaseio.com",
+            projectId: "hopital-test",
+            storageBucket: "hopital-test.appspot.com",
+            messagingSenderId: "208649174671",
+            appId: "1:208649174671:web:58f13bcbc5e89523c1bafa"
+        };
+
+        let app = initializeApp(firebaseConfig);
+        let db = getDatabase();
+
+        let medname = document.getElementById('medname');
+        let quan = document.getElementById("quantity");
+        let date = document.getElementById("date");
+        let addbutt = document.getElementById('addbutt');
+        let exbutt = document.getElementById('export');
+        let findbutt = document.getElementById('findandlist');
+        //chay duoc
+        // function addMedicine() {
+        //     const medicineName = medname.value;
+        //     const quantity = Number(quan.value);
+        //     const expiryDate = date.value;
+
+        //     // Create a reference to the medicine
+        //     const medicineRef = ref(db, 'MedicineSet/' + medicineName);
+
+        //     // Check if the medicine exists
+        //     get(medicineRef)
+        //         .then((snapshot) => {
+        //             if (snapshot.exists()) {
+        //                 // Medicine exists, compare expiry dates
+        //                 const existingData = snapshot.val();
+        //                 const existingExpiryDate = existingData.c_expiryDate;
+
+        //                 if (existingExpiryDate === expiryDate) {
+        //                     // Same expiry date, update the quantity
+        //                     const existingQuantity = existingData.b_quantity || 0;
+        //                     const updatedQuantity = existingQuantity + quantity;
+
+        //                     // Update the quantity
+        //                     update(medicineRef, { b_quantity: updatedQuantity })
+        //                         .then(() => {
+        //                             alert("Quantity updated successfully!");
+        //                         })
+        //                         .catch((error) => {
+        //                             console.error("Error updating quantity:", error);
+        //                         });
+        //                 } else {
+        //                     // Different expiry date, create a new batch
+        //                     push(medicineRef, {
+        //                         a_medicineName: medicineName,
+        //                         b_quantity: quantity,
+        //                         c_expiryDate: expiryDate
+        //                     })
+        //                         .then(() => {
+        //                             alert("New batch added successfully!");
+        //                         })
+        //                         .catch((error) => {
+        //                             console.error("Error adding new batch:", error);
+        //                         });
+        //                 }
+        //             } else {
+        //                 // Medicine doesn't exist, create a new entry
+        //                 set(medicineRef, {
+        //                     a_medicineName: medicineName,
+        //                     b_quantity: quantity,
+        //                     c_expiryDate: expiryDate
+        //                 })
+        //                     .then(() => {
+        //                         alert("New medicine added successfully!");
+        //                     })
+        //                     .catch((error) => {
+        //                         console.error("Error adding new medicine:", error);
+        //                     });
+        //             }
+        //         })
+        //         .catch((error) => {
+        //             console.error("Error checking medicine existence:", error);
+        //         });
+        // }
+
+
+        function addMedicine() {
+            const medicineName = medname.value.trim();
+            const quantity = Number(quan.value);
+            const expiryDate = date.value;
+
+            // Reference to the specific medicine in the database
+            const medicineRef = ref(db, "MedicineSet/" + medicineName);
+
+            // Retrieve the current data for the specified medicine
+            get(medicineRef).then((snapshot) => {
+                const medData = snapshot.val();
+                let updated = false;
+
+                if (medData) {
+                    // Iterate over each batch
+                    Object.keys(medData).forEach(batchId => {
+                        const batch = medData[batchId];
+                        if (batch.c_expirydate === expiryDate) {
+                            // Batch with same expiry date found, update quantity
+                            const updatedQuantity = batch.b_quantity + quantity;
+                            update(ref(db, `MedicineSet/${medicineName}/${batchId}`), {
+                                b_quantity: updatedQuantity
+                            }).then(() => {
+                                alert("Updated quantity for existing batch.");
+                                updated = true;
+                            }).catch((error) => {
+                                console.error("Failed to update quantity:", error);
+                            });
+                        }
+                    });
+
+                    // After checking all batches, if no update has been made, add a new batch
+                    if (!updated) {
+                        setTimeout(() => {
+                            if (!updated) {  // Check again in case of delayed async update resolution
+                                const newBatchId = Object.keys(medData).length + 1;
+                                set(ref(db, `MedicineSet/${medicineName}/${newBatchId}`), {
+                                    a_medicineName: medicineName,
+                                    b_quantity: quantity,
+                                    c_expirydate: expiryDate
+                                }).then(() => {
+                                    alert("Added new batch for the medicine.");
+                                }).catch((error) => {
+                                    console.error("Failed to add new batch:", error);
+                                });
+                            }
+                        }, 500); // Small delay to ensure that all async updates are resolved
+                    }
+                } else {
+                    // No existing medicine found, create the first batch
+                    set(ref(db, `MedicineSet/${medicineName}/1`), {
+                        a_medicineName: medicineName,
+                        b_quantity: quantity,
+                        c_expirydate: expiryDate
+                    }).then(() => {
+                        alert("Added first batch of new medicine.");
+                    }).catch((error) => {
+                        console.error("Failed to create first medicine batch:", error);
+                    });
+                }
+            }).catch((error) => {
+                console.error("Failed to retrieve medicine data:", error);
+            });
+
+            setTimeout(() => {
+                location.reload();
+            }, 3000);
+        }
+
+        addbutt.addEventListener('click', addMedicine);
+
+        function exportMedicine() {
+            const medicineName = medname.value.trim();
+            const quantity = Number(quan.value);
+            const expiryDate = date.value;
+            ///do 
+
+            const medicineRef = ref(db, `MedicineSet/${medicineName}`);
+
+            // Retrieve the current data for the specified medicine
+            get(medicineRef).then((snapshot) => {
+                const medData = snapshot.val();
+                if (medData) {
+                    Object.keys(medData).forEach(batchId => {
+                        const batch = medData[batchId];
+                        if (batch.c_expirydate === expiryDate) {
+                            if (quantity >= batch.b_quantity) {
+                                // If quantity to export is greater than or equal to current quantity, remove the batch
+                                remove(ref(db, `MedicineSet/${medicineName}/${batchId}`)).then(() => {
+                                    alert("Removed batch as requested quantity exceeds current quantity.");
+                                }).catch((error) => {
+                                    console.error("Failed to remove batch:", error);
+                                });
+                            } else {
+                                const updatedQuantity = batch.b_quantity - quantity;
+                                // Update the quantity
+                                update(ref(db, `MedicineSet/${medicineName}/${batchId}`), {
+                                    b_quantity: updatedQuantity
+                                }).then(() => {
+                                    alert("Updated quantity for existing batch.");
+                                }).catch((error) => {
+                                    console.error("Failed to update quantity:", error);
+                                });
+                            }
+                        }
+                    });
+                } else {
+                    alert("No medicine found with the specified name and expiry date.");
+                }
+            }).catch((error) => {
+                console.error("Failed to retrieve medicine data:", error);
+            });
+
+
+            setTimeout(() => {
+                location.reload();
+            }, 3000);
+        }
+
+        exbutt.addEventListener('click', exportMedicine);
+
+        function findAndList() {
+            const medicineName = document.getElementById('inputname').value.trim();
+            //do
+            // find and display all of results medicine with the same name and display into html with createElements div
+            const medicineRef = ref(db, `MedicineSet/${medicineName}`);
+
+            get(medicineRef).then((snapshot) => {
+                const medData = snapshot.val();
+                if (medData) {
+                    // Clear any previous results
+                    document.getElementById('medicineList').innerHTML = '';
+
+                    // Iterate over each batch and display it
+                    Object.keys(medData).forEach(batchId => {
+                        const batch = medData[batchId];
+                        const batchDiv = document.createElement('div');
+                        batchDiv.textContent = `Tên thuốc : ${medicineName}, Số lượng: ${batch.b_quantity}, Hạn sử dụng: ${batch.c_expirydate}`;
+                        batchDiv.style.padding = "20px";
+                        batchDiv.style.backgroundColor = "#b6b5b5";
+                        batchDiv.style.borderRadius = "15px";
+                        document.getElementById('medicineList').appendChild(batchDiv);
+                        document.getElementById('medicineList').appendChild(document.createElement('br'));
+                    });
+                } else {
+                    alert("No medicine found with the specified name.");
+                }
+            }).catch((error) => {
+                console.error("Failed to retrieve medicine data:", error);
+            });
+        }
+        findbutt.addEventListener('click', findAndList);
+    </script>
+
+</body>
+
+
+
+<style>
+    /* Responsive layout - makes the menu and the content (inside the section) sit on top of each other instead of next to each other */
+    /* @media (max-width: 600px) {
+        section {
+            -webkit-flex-direction: column;
+            flex-direction: column;
+        }
+    } */
+    /* Truy vấn phương tiện cho điện thoại có màn hình 6.1 inch */
+    @media only screen and (max-width: 720px) {
+
+        /* CSS dành cho điện thoại có màn hình 6.1 inch */
+        body {
+            font-size: 16px;
+            /* Điều chỉnh kích thước chữ cho hiển thị tốt hơn trên màn hình nhỏ hơn */
+        }
+
+        .container {
+            width: 90%;
+            /* Điều chỉnh độ rộng của container để phù hợp với kích thước màn hình */
+        }
+    }
+
+
+    body {
+        background-image: url("/picture/4.png");
+    }
+
+    a,
+    a:active,
+    a:visited {
+        color: rgb(0, 0, 0);
+        text-decoration: none;
+        font-family: Verdana, Geneva, Tahoma, sans-serif;
+        font: bold;
+        padding: 20px;
+    }
+
+    a:hover {
+        background-color: #1a9ef6;
+    }
+
+    #loginbutt {
+        padding: 20px;
+        border-radius: 16px;
+        background-color: #FFFF;
+    }
+
+    #loginbutt:hover {
+        background-color: #0066ff;
+    }
+
+    .container {
+        display: flex;
+        flex-direction: column;
+        min-height: 100%;
+    }
+
+    .sth {
+        flex: 1;
+        overflow-y: scroll;
+        max-height: 700px;
+    }
+
+    .footer_page {
+        flex-shrink: 0;
+        /* Prevent footer from shrinking */
+    }
+</style>
+
+
+</html>
