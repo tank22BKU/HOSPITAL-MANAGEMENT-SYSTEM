@@ -9,6 +9,7 @@
 </head>
 
 <body>
+
     <div style="margin-bottom: 42px;">
         <header class="logo-name">
             <ul style="list-style: none;">
@@ -37,13 +38,14 @@
         </ul>
     </div>
 
-    <div class="sth" style="height: 700px;">
+    <div class="sth" style="height: 780px;">
         <div id="query_update_box">
             <h3 id="here"></h3>
         </div>
-        <div class="respon_update_box" >
+        <div class="respon_update_box">
             <div style="display: block;padding: 20px 20px;width: 100%;background-color: #e7e7e7;">
-                <h3 style="font-family: Arial, Helvetica, sans-serif;margin-left: 70px;"><b>CHỈNH SỬA THÔNG TIN BỆNH NHÂN</b></h3>
+                <h3 style="font-family: Arial, Helvetica, sans-serif;margin-left: 70px;"><b>CHỈNH SỬA THÔNG TIN BỆNH
+                        NHÂN</b></h3>
                 <hr color="#3AB0FF">
                 <div style="padding-left: 100px;">
                     <label>
@@ -60,11 +62,32 @@
                     </label>
                     <label>
                         Số Điện thoại *
-                        <input type="text" id="pa_number" placeholder="Để trống nếu không đổi" ><br><br>
+                        <input type="text" id="pa_number" placeholder="Để trống nếu không đổi"><br><br>
                     </label>
                     <label>
                         Địa chỉ *
                         <input type="text" id="pa_address" placeholder="Để trống nếu không đổi" size="45"><br><br>
+                    </label>
+                    <label>
+                        Lịch sử bệnh án <label style="color: red;">*</label>
+                        <input type="text" id="adddiachi" placeholder="Nếu không có, để trống." size="30"
+                            autocomplete="off"><br><br>
+                    </label>
+                    <label>
+                        Tình trạng <label style="color: red;">*</label>
+                        <select id="status">
+                            <option value="Tình trạng" hidden>Tình trạng</option>
+                            <option value="Đang điều trị">Đang điều trị</option>
+                            <option value="Đã khỏi">Đã khỏi</option>
+                        </select><br><br>
+                    </label>
+                    <label>
+                        Ngày khám <label style="color: red;">*</label>
+                        <input type="date" id="datein" autocomplete="off" value=""><br><br>
+                    </label>
+                    <label>
+                        Ngày tái khám <label style="color: red;">*</label>
+                        <input type="date" id="dateout" autocomplete="off"><br><br>
                     </label>
                     <label>
                         Kết quả xét nghiệm *<br>
@@ -72,7 +95,9 @@
                     </label>
                 </div>
 
-                <button id="" style="border: none;padding: 10px 20px;border-radius: 7px;color: white;background-color: #3AB0FF;margin: 20px 400px;">Cập nhật thay đổi</button>
+                <button id="completeupdate"
+                    style="border: none;padding: 10px 20px;border-radius: 7px;color: white;background-color: #3AB0FF;margin: 20px 400px;">Cập
+                    nhật thay đổi</button>
             </div>
         </div>
     </div>
@@ -93,6 +118,121 @@
         </nav>
     </div>
 
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-app.js";
+        import { getDatabase, ref, get, set, update, push, remove } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-database.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyDcB0lhFB7D-vW3fls9DNLQKcQPHkngvn4",
+            authDomain: "hopital-test.firebaseapp.com",
+            databaseURL: "https://hopital-test-default-rtdb.firebaseio.com",
+            projectId: "hopital-test",
+            storageBucket: "hopital-test.appspot.com",
+            messagingSenderId: "208649174671",
+            appId: "1:208649174671:web:58f13bcbc5e89523c1bafa"
+        };
+
+        let app = initializeApp(firebaseConfig);
+        let db = getDatabase();
+
+        // Function to check if the patient with the given cccd exists in the database
+
+        function checkUpdatePatient(cccd) {
+            //update patient information with cccd finding in database
+            /*
+            set(ref(db, `PatientSet/${patientCCCD}`), {
+                a_patientName: patientName,
+                b_BHXH: patientBHXH,
+                c_CCCD: patientCCCD,
+                d_phone: patientSDT,
+                e_gender: patientGender,
+                f_address: patientAddress,
+                g_kqxn: patientKQXN,
+                h_status: patientstatus,
+                i_history: patientHistory,
+                j_datein: patientDateIn,
+                k_dateout: patientDateOut
+            });
+            */
+            /*Update the patient information in the database,the fields that are empty will not be updated
+                Example only the phone number is not null then only update the phone number
+            */
+            // Update the patient information in the database, the fields that are empty will not be updated
+            const patientCCCD = document.getElementById('pa_cccd').value;
+            const patientSDT = document.getElementById('pa_number').value;
+            const patientAddress = document.getElementById('pa_address').value;
+            const patientHistory = document.getElementById('adddiachi').value;
+            const patientStatus = document.getElementById('status').value;
+            const patientDateIn = document.getElementById('datein').value;
+            const patientDateOut = document.getElementById('dateout').value;
+            const patientKQXN = document.getElementById('pa_kqxn').value;
+
+            if (patientSDT !== '') {
+                update(ref(db, `PatientSet/${patientCCCD}`), {
+                    d_phone: patientSDT
+                }).catch((error) => {
+                    console.error("Error updating document: ", error);
+                });
+            }
+
+            if (patientAddress !== '') {
+                update(ref(db, `PatientSet/${patientCCCD}`), {
+                    f_address: patientAddress
+                }).catch((error) => {
+                    console.error("Error updating document: ", error);
+                });
+            }
+
+            if (patientHistory !== '') {
+                update(ref(db, `PatientSet/${patientCCCD}`), {
+                    i_history: patientHistory
+                }).catch((error) => {
+                    console.error("Error updating document: ", error);
+                });
+            }
+
+            if (patientStatus !== 'Tình trạng') {
+                update(ref(db, `PatientSet/${patientCCCD}`), {
+                    h_status: patientStatus
+                }).catch((error) => {
+                    console.error("Error updating document: ", error);
+                });
+            }
+
+            if (patientDateIn !== '') {
+                update(ref(db, `PatientSet/${patientCCCD}`), {
+                    j_datein: patientDateIn
+                }).catch((error) => {
+                    console.error("Error updating document: ", error);
+                });
+            }
+
+            if (patientDateOut !== '') {
+                update(ref(db, `PatientSet/${patientCCCD}`), {
+                    k_dateout: patientDateOut
+                }).catch((error) => {
+                    console.error("Error updating document: ", error);
+                });
+            }
+
+            if (patientKQXN !== '') {
+                update(ref(db, `PatientSet/${patientCCCD}`), {
+                    g_kqxn: patientKQXN
+                }).catch((error) => {
+                    console.error("Error updating document: ", error);
+                });
+            }
+            alert("Cập nhật thông tin bệnh nhân thành công!");
+            setTimeout(() => {
+                window.location.href = '/public/patient/patient_inf.html';
+            }, 2000);
+        }
+
+        document.getElementById('completeupdate').addEventListener('click', () => {
+            const patientCCCD = document.getElementById('pa_cccd').value;
+            checkUpdatePatient(patientCCCD);
+        });
+    </script>
 
     <script>
         // Wait for the DOM content to be fully loaded
@@ -103,10 +243,16 @@
             const s_bhxh = urlParams.get('s_bhxh');
             const s_cccd = urlParams.get('s_cccd');
 
-            document.getElementById('pa_name').value =  s_patientName;
-            document.getElementById('pa_bhxh').value =  s_bhxh;
-            document.getElementById('pa_cccd').value =  s_cccd;
+            document.getElementById('pa_name').value = s_patientName;
+            document.getElementById('pa_bhxh').value = s_bhxh;
+            document.getElementById('pa_cccd').value = s_cccd;
+            //call function to check update patient information with cccd
         });
+
+        //return to the patient_inf.html if click the button "Cập nhật thay đổi"
+        // document.getElementById('completeupdate').addEventListener('click', () => {
+        //     window.location.href = '/public/patient/patient_inf.html';
+        // });
     </script>
 </body>
 
@@ -122,7 +268,7 @@
     }
 
     body {
-        background-image: url("/picture/4.png");
+        background-image: url("/public/picture/4.png");
     }
 
     a,
@@ -148,7 +294,8 @@
     #loginbutt:hover {
         background-color: #0066ff;
     }
-    .sth{
+
+    .sth {
         font-size: larger;
     }
 </style>
