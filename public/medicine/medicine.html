@@ -365,6 +365,23 @@
                         const batch = medData[batchId];
                         const batchDiv = document.createElement('div');
                         batchDiv.textContent = `Tên thuốc : ${medicineName}, Số lượng: ${batch.b_quantity}, Hạn sử dụng: ${batch.c_expirydate}`;
+                        //create a button onclick = remove batch
+                        const removeButton = document.createElement('button');
+                        removeButton.textContent = "Xóa";
+                        removeButton.style.marginLeft = "10px";
+                        removeButton.style.padding = "5px";
+                        removeButton.style.borderRadius = "5px";
+                        removeButton.style.backgroundColor = "#ff0000";
+                        removeButton.style.color = "#ffffff";
+                        removeButton.addEventListener('click', () => {
+                            remove(ref(db, `MedicineSet/${medicineName}/${batchId}`)).then(() => {
+                                alert("Removed batch successfully.");
+                                batchDiv.remove();
+                            }).catch((error) => {
+                                console.error("Failed to remove batch:", error);
+                            });
+                        });
+                        batchDiv.appendChild(removeButton);
                         batchDiv.style.padding = "20px";
                         batchDiv.style.backgroundColor = "#b6b5b5";
                         batchDiv.style.borderRadius = "15px";

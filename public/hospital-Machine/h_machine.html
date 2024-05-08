@@ -9,16 +9,42 @@
 </head>
 
 <body>
+    <script src="./script (2) (1) (1).js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-app.js"></script>
+
+    <!-- If you enabled the database -->
+    <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-database.js"></script>
+
+    <!-- Firebase App (the core Firebase SDK) is always required and must be listed first -->
+    <script>   
+       var firebaseConfig = {
+    apiKey: "AIzaSyAd4_Np45sRl5uPdciyOrF3U6xT62gnzUQ",
+    authDomain: "ltnc-3a24c.firebaseapp.com",
+    databaseURL: "https://ltnc-3a24c-default-rtdb.firebaseio.com",
+    projectId: "ltnc-3a24c",
+    storageBucket: "ltnc-3a24c.appspot.com",
+    messagingSenderId: "1094416536083",
+    appId: "1:1094416536083:web:6b93941974081ac898a5e6",
+    measurementId: "G-05YGQ7YMHQ"
+  };
+   
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.database();
+    const elistRef = db.ref("/Elist");
+    </script>
+
+
     <div style="margin-bottom: 42px;">
         <header class="logo-name">
             <ul style="list-style: none;">
                 <li style="float: left;margin-left: 130px;padding-right:30px;"><img src="/public/picture/bku.png" alt="bkupic"
                         height="80px"></li>
                 <li>
-                    <h1
+                    <h3
                         style="font-family: Arial, Helvetica, sans-serif;font-size: 22pt;padding-top: 28px;padding-left: 200px;">
                         <i>BK Hospital</i>
-                    </h1>
+                    </h3>
                 </li>
             </ul>
         </header>
@@ -36,9 +62,95 @@
         </ul>
     </div>
 
-    <div class="sth" style="height: 700px;">
+    <div class="sth" style="height: 30px;">
     
     </div>
+    
+  <h1>Quản lý thiết bị</h1>
+  <!-- Form chỉnh sửa thông tin thiết bị -->
+  
+  
+   <form action=""id="adDevice" >
+    <h2>Thêm Thiết Bị Mới</h2>
+    <label for="deviceName">Tên Thiết Bị:</label>
+    <input type="text" id="deviceName" name="deviceName" placeholder="Tên Thiết Bị">
+    <br>
+    <label for="initialStatus">Trạng Thái :</label>
+    <input type="text" id="initialStatus" name="initialStatus" placeholder="Trạng Thái">
+    <br>
+    <label for="initialAvailability">Số lượng:</label>
+    <input type="number" id="initialAvailability" name="initialAvailability" placeholder="Số lượng">
+    <br>
+    <label for="initialDate">Ngày thêm:</label>
+    <input type="date" id="initialDate" name="initialDate"> 
+    <br>
+    <button onclick="createAndRefresh(event)">Thêm Thiết Bị</button>    
+</form>
+    <div id="output"></div>
+
+    <form id="updateDevice">
+        <h2>Cập Nhật Thông Tin Thiết Bị</h2>
+        <label for="updateDeviceName">Tên Thiết Bị:</label>
+        <input type="text" id="updateDeviceName" placeholder="Tên Thiết Bị">
+        <br>
+        <label for="updateInitialStatus">Trạng Thái:</label>
+        <input type="text" id="updateInitialStatus" placeholder="Trạng Thái">
+        <br>
+        <label for="updateInitialAvailability">Số lượng:</label>
+        <input type="number" id="updateInitialAvailability" placeholder="Số lượng">
+        <br>
+        <label for="updateInitialDate">Ngày cập nhật:</label>
+        <input type="date" id="updateInitialDate">
+        <br>
+        <br>
+        <button id="updateButt" type="submit">Cập Nhật Thiết Bị</button>
+    </form>
+    
+
+    
+
+    <script src="https://www.gstatic.com/firebasejs/9.6.3/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.3/firebase-database.js"></script>
+    
+
+    <div id="wrapper">
+      <h2 class="center">DANH SÁCH THIẾT BỊ Y TẾ</h2>
+      <input type="text" id="searchInput" onkeyup="searchEmployee(this.value)" placeholder="Tìm nhân viên...">
+      <div class="table-wrapper">
+          <table>
+              <tbody id="device-table">
+                  <!-- Dữ liệu từ cơ sở dữ liệu sẽ được thêm vào đây -->
+              </tbody>
+          </table>
+      </div>
+      <script>
+      document.addEventListener('DOMContentLoaded', function() {
+          updateTable();
+      });
+      </script>
+  </div>
+  <script>
+    function searchEmployee(name) {
+      // Get the table
+      const table = document.getElementById('device-table');
+
+      // Loop through all table rows, and hide those who don't match the search query
+      for (let i = 1; i < table.rows.length; i++) {
+          let td = table.rows[i].getElementsByTagName('td')[1]; // Assuming the name is in the second column
+          if (td) {
+              let txtValue = td.textContent || td.innerText;
+              if (txtValue.toUpperCase().includes(name.toUpperCase())) {
+                  table.rows[i].style.display = "";
+              } else {
+                  table.rows[i].style.display = "none";
+              }
+          }
+      }
+  }
+</script>
+  
+
+
 
     <div class="footer_page" style="height: 200px;background-color: #76c2f5;">
         <h3 style="font-family: Arial, Helvetica, sans-serif;text-align: center;margin-top: 20px;padding-top: 20px;">
@@ -55,7 +167,8 @@
 
         </nav>
     </div>
-    
+    <script type="module" src="./main.js"></script>
+
 </body>
 
 </html>
@@ -95,5 +208,259 @@
 
     #loginbutt:hover {
         background-color: #0066ff;
+
     }
+    
+    /* Định dạng CSS cho các phần tử */
+    /* Đây là ví dụ, bạn có thể tùy chỉnh theo ý của bạn */
+    body {
+        background-image: url("/public/picture/4.png");
+    }
+
+    a,
+    a:active,
+    a:visited {
+        color: rgb(0, 0, 0);
+        text-decoration: none;
+        font-family: Verdana, Geneva, Tahoma, sans-serif;
+        font: bold;
+        padding: 20px;
+    }
+
+    a:hover {
+        background-color: #1a9ef6;
+    }
+
+    #loginbutt {
+        padding: 20px;
+        border-radius: 16px;
+        background-color: #FFFF;
+    }
+
+    #loginbutt:hover {
+        background-color: #0066ff;
+    }
+    h1 {
+  
+  font-family: "montserrat", Arial;
+  font-size: 24px; /* Kích thước chữ */
+  font-weight: bold; /* Độ đậm của chữ */
+  color: #333; /* Màu chữ */
+  text-align: center; /* Căn giữa nội dung */
+  padding: 20px; /* Khoảng cách bên trong của box */
+  background-color: #f0f0f0; /* Màu nền của box */
+  border: 1px solid #ccc; /* Viền của box */
+  border-radius: 5px; /* Độ cong của góc của box */
+}
+#editForm, #editDate {
+  font-family: "montserrat", Arial;
+  width: 300px;
+  margin: 39px -4px 5px 79px;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+}
+
+#editForm h2, #editDate h2 {
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  font-size: 25px;
+  color: #000000;
+}
+
+#editForm label, #editDate label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+#editForm input[type="text"], 
+#editForm input[type="number"], 
+#editForm select, 
+#editDate input[type="date"], 
+#editDate select {
+  width: calc(100% - 10px);
+  padding: 8px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+#editForm button[type="button"], 
+#editDate button[type="button"] {
+  background-color: #4CAF50;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+#editForm button[type="button"]:hover, 
+#editDate button[type="button"]:hover {
+  background-color: #45a049;
+}
+
+#output {
+  margin-top: 20px;
+  font-weight: bold;
+}
+    
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    th, td {
+      border: 1px solid #ddd;
+      padding: 8px;
+      text-align: left;
+    }
+    th {
+      background-color: #f2f2f2;
+    }
+  /* CSS cho cả hai biểu mẫu */
+  #adDevice, #updateDevice {
+    font-family: "Montserrat", Arial;
+    width: 300px;
+    margin: 39px -4px 5px 79px;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+}
+
+h2 {
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    margin: 9px 0px 26px 0;
+    font-size: 25px;
+    color: #000000;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+input[type="text"],input[type="number"],
+input[type="date"] {
+    width: calc(100% - 10px);
+    padding: 8px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+button[type="submit"]:hover {
+    background-color: #45a049;
+}
+
+#output {
+    margin-top: 20px;
+    font-weight: bold;
+}
+#wrapper{
+        font-family: "montserrat", Arial;
+            width: 1300px;
+            margin: -900px  24px 17px 102px;
+            padding: 20px;
+            border: 2px solid #ccc;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+            text-align: right;
+            float: right;
+      }
+      /*Style cho menu Edit*/
+      .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #f9f9f9;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            z-index: 1;
+        }
+
+        .dropdown-content a {
+            color: black;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+        }
+
+        .dropdown-content a:hover {background-color: #f1f1f1}
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        .dropdown:hover .dropbtn {
+            background-color: #3e8e41;
+        }
+    
+   
+      .table-wrapper {
+    height: 510px; /* Đặt chiều cao tối đa */
+    overflow-y: auto; /* Tạo thanh cuộn dọc */
+}
+.table-wrapper th, .table-wrapper td {
+    padding: 8px;
+    text-align: left;
+    white-space: nowrap; /* Ngăn chặn từ bị ngắt dòng */
+}
+
+.table-wrapper th {
+    position: sticky; /* Cố định thanh tiêu đề */
+    top: 0; /* Đặt vị trí cố định ở trên cùng */
+    background-color: #f2f2f2; /* Màu nền cho thanh tiêu đề */
+    z-index: 1; /* Đảm bảo thanh tiêu đề hiển thị trên cùng */
+}
+/* Style cho bảng */
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+/* Style cho header của bảng */
+th, td {
+    border: 2px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+
+th {
+    background-color: #f2f2f2;
+}
+
+/* Style cho các dòng của bảng */
+tr:hover {
+    background-color: #f5f5f5;
+}
+#initialAvailability {
+    width: calc(100% - 10px);
+    padding: 8px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
 </style>
