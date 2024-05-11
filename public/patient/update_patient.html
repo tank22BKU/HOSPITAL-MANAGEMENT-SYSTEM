@@ -32,8 +32,8 @@
             <li style="float: left;"><a href="../patient/patient_inf.html" rel=""><b>BỆNH NHÂN</b></a></li>
             <li style="float: left;"><a href="../hopitalstaff/h_staff.html" rel=""><b>NHÂN VIÊN Y TẾ</b></a></li>
             <li style="float: left;"><a href="../medicine/medicine.html" rel=""><b>THUỐC</b></a></li>
-            <li style="float: left ;padding-right: 50px;"><a href="../hospital-Machine/h_machine.html"
-                    rel=""><b>THIẾT BỊ Y TẾ</b></a></li>
+            <li style="float: left ;padding-right: 50px;"><a href="../hospital-Machine/h_machine.html" rel=""><b>THIẾT
+                        BỊ Y TẾ</b></a></li>
             <li><a id="loginbutt" rel=""><b><i>ADMIN</i></b></a></li>
         </ul>
     </div>
@@ -122,14 +122,32 @@
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-app.js";
         import { getDatabase, ref, get, set, update, push, remove } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-database.js";
 
+        // const firebaseConfig = {
+        //     apiKey: "AIzaSyDcB0lhFB7D-vW3fls9DNLQKcQPHkngvn4",
+        //     authDomain: "hopital-test.firebaseapp.com",
+        //     databaseURL: "https://hopital-test-default-rtdb.firebaseio.com",
+        //     projectId: "hopital-test",
+        //     storageBucket: "hopital-test.appspot.com",
+        //     messagingSenderId: "208649174671",
+        //     appId: "1:208649174671:web:58f13bcbc5e89523c1bafa"
+        // };
+
+        // const firebaseConfig = {
+        //     apiKey: "AIzaSyAAFM2lteHzd_CJCzF_fOSNrRgk2IBHmuE",
+        //     authDomain: "rebuild-10fed.firebaseapp.com",
+        //     projectId: "rebuild-10fed",
+        //     storageBucket: "rebuild-10fed.appspot.com",
+        //     messagingSenderId: "434656807599",
+        //     appId: "1:434656807599:web:93e221777958e18bbe225a"
+        // };
+
         const firebaseConfig = {
-            apiKey: "AIzaSyDcB0lhFB7D-vW3fls9DNLQKcQPHkngvn4",
-            authDomain: "hopital-test.firebaseapp.com",
-            databaseURL: "https://hopital-test-default-rtdb.firebaseio.com",
-            projectId: "hopital-test",
-            storageBucket: "hopital-test.appspot.com",
-            messagingSenderId: "208649174671",
-            appId: "1:208649174671:web:58f13bcbc5e89523c1bafa"
+            apiKey: "AIzaSyDmkmTyzd5AN6fntdPITejCGtl9PeIPyAc",
+            authDomain: "nonetest-ef5ff.firebaseapp.com",
+            projectId: "nonetest-ef5ff",
+            storageBucket: "nonetest-ef5ff.appspot.com",
+            messagingSenderId: "879700616489",
+            appId: "1:879700616489:web:dbb66ab44f8226f82b0338"
         };
 
         let app = initializeApp(firebaseConfig);
